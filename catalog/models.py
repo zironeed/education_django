@@ -20,8 +20,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product/', **NULLABLE, verbose_name='Изображение')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     price = models.IntegerField(verbose_name='Цена')
-    created_at = models.DateField(verbose_name='Дата создания')
-    last_change = models.DateField(verbose_name='Последнее изменение')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
+    last_change = models.DateField(auto_now=True, verbose_name='Последнее изменение')
 
     def __str__(self):
         return f'{self.name} ({self.category})'
