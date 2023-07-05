@@ -7,9 +7,9 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
 
         products = [
-            {'name': 'Яблоко', 'description': 'Кислое', 'image': '', 'category': 'Фрукт', 'price': 150.0},
-            {'name': 'Картофель', 'description': 'Пюрешка)', 'image': '', 'category': 'Овощ', 'price': 110.0},
-            {'name': 'Клубника', 'description': 'Сладкое', 'image': '', 'category': 'Ягода', 'price': 215.0}
+            {'name': 'Яблоко', 'description': 'Кислое', 'image': 'images/apple.jpg', 'category': 'Фрукт', 'price': 150.0},
+            {'name': 'Картофель', 'description': 'Пюрешка)', 'image': 'images/potato.jpg', 'category': 'Овощ', 'price': 110.0},
+            {'name': 'Клубника', 'description': 'Сладкое', 'image': 'images/strawberry.jpg', 'category': 'Ягода', 'price': 215.0}
         ]
 
         creating_products = []
