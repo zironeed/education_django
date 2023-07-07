@@ -1,0 +1,9 @@
+{% extends 'catalog/base.html' %}
+{% load product_tags %}
+
+{% block content %}
+NAME: {{ name }}<p>
+PRICE: {{ price }}<p>
+DESCRIPTION: {{ description }}<p>
+<img src="{% mediapath_tag image %}" width="300"/>
+{% endblock %}
