@@ -24,7 +24,8 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <li>{{ product.description|slice:'100' }}</li>
                 </ul>
-                <a href="{% url 'product_cart' product.id %}" class="w-100 btn btn-lg btn-outline-primary">Show</a>
+                <a href="{% url 'catalog:product' product.pk %}"
+                   class="w-100 btn btn-lg btn-outline-primary">Показать</a>
             </div>
         </div>
     </div>

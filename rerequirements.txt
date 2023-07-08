@@ -6,3 +6,4 @@ tzdata
 psycopg2
 pillow
 ipython
+pytils

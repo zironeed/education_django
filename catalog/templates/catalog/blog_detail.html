@@ -1,0 +1,10 @@
+{% extends 'catalog/base.html' %}
+{% load product_tags %}
+
+{% block content %}
+What?: {{ blog.title }}<p>
+Slug: {{ blog.slug }}<p>
+Text: {{ blog.body }}<p>
+Views: {{ blog.view_count }}<p>
+<img src="{% mediapath_tag blog.preview %}" width="300"/>
+{% endblock %}
