@@ -9,6 +9,10 @@
         погрузиться в мир качественных продуктов растительного происхождения</p>
 </div>
 
+<div class="col-6 mb-5">
+    <a href="{% url 'catalog:product_create' %}" class="w-30 btn btn-lg btn-primary">Создать</a>
+</div>
+
 <div class="row text-center">
 
     {% for product in product_list %}
@@ -26,6 +30,10 @@
                 </ul>
                 <a href="{% url 'catalog:product' product.pk %}"
                    class="w-100 btn btn-lg btn-outline-primary">Показать</a>
+                <a href="{% url 'catalog:product_edit' product.pk %}"
+                   class="w-100 btn btn-lg btn-outline-primary">Изменить</a>
+                <a href="{% url 'catalog:product_delete' product.pk %}"
+                   class="w-100 btn btn-lg btn-outline-warning">Удалить</a>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ from pytils.translit import slugify
 
 from catalog.models import Product, Blog
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from catalog.forms import ProductForm
 
 
 # Create your views here.
@@ -13,6 +14,23 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:view',)
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:view')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:view')
 
 
 def contacts(request):
@@ -75,10 +93,10 @@ class BlogUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
+        """Перенаправление на обновленный пост"""
         return reverse('catalog:blog', args=[self.kwargs.get('pk')])
 
 
 class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('catalog:blogs')
-11
