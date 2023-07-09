@@ -5,5 +5,11 @@
 NAME: {{ product.name }}<p>
 PRICE: {{ product.price }}<p>
 DESCRIPTION: {{ product.description }}<p>
+ADDITIONAL INFORMATION:
+{% if product_version %}
+    {{ product_version }}
+{% else %}
+    Версий продукта нет.
+{% endif %}<p>
 <img src="{% mediapath_tag product.image %}" width="300"/>
 {% endblock %}

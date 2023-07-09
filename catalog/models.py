@@ -30,6 +30,10 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
 
+    @property
+    def active_version(self):
+        return self.version_set.last()
+
 
 class Blog(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
@@ -46,3 +50,17 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'Блог'
         verbose_name_plural = 'Блоги'
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    ver_num = models.IntegerField(verbose_name='Версия')
+    ver_name = models.CharField(max_length=100, verbose_name='Название версии')
+    is_published = models.BooleanField(default=True, verbose_name='Признак версии')
+
+    def __str__(self):
+        return f'Версия {self.ver_num} | {self.ver_name}'
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
