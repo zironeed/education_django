@@ -1,0 +1,10 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+
+<h3>Обновление пароля</h3>
+<p>Ваш пароль успешно изменен. Он был отправлен на ваш адрес электронной почты.</p>
+<a href="{% url 'catalog:view' %}"
+   class="w-100 btn btn-lg btn-outline-primary">На главную</a>
+
+{% endblock %}

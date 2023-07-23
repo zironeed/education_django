@@ -15,6 +15,7 @@ from users.forms import UserForm
 from users.models import User
 
 from catalog.utils import sendmail
+from users.utils import password_generator
 
 import config.settings
 import random
@@ -103,9 +104,9 @@ class UserResetCompleteView(PasswordResetCompleteView):
 
 
 def generate_password(request):
-    new_password = "".join([str(random.randint(0, 9)) for _ in range(12)])
-    sendmail(request.user.email, "Замена пароля на сайте Skyfarm:", new_password)
+    new_password = password_generator()
+    sendmail(request.user.email, "Замена пароля на сайте Skyfarm", new_password)
     request.user.set_password(new_password)
     request.user.save()
 
-    return redirect(reverse("catalog:view"))
+    return render(request, 'users/reset/reset_complete.html')
