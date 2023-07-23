@@ -83,25 +83,20 @@ class UserConfirmedView(TitleMixin, TemplateView):
     title = "Почта активирована!"
 
 
-class NewPasswordView(PasswordResetView):
-    template_name = 'users/send_reset_email.html'
-    email_template_name = 'users/send_email.html'
-    success_url = reverse_lazy('users:password_notification')
+class UserResetView(PasswordResetView):
+    template_name = "users/reset/password_reset_form.html"
+    email_template_name = "users/reset/password_reset_email.html"
+    success_url = reverse_lazy('users:password_reset_done')
 
 
-class DoneNewPasswordView(PasswordResetDoneView):
-    template_name = 'users/send_notification.html'
+class UserResetDoneView(PasswordResetDoneView):
+    template_name = "users/reset/password_reset_done.html"
 
 
 class UserResetConfirmView(PasswordResetConfirmView):
-    template_name = "users/password_reset_confirm.html"
+    template_name = "users/reset/password_reset_confirm.html"
     success_url = reverse_lazy("users:password_reset_complete")
 
-    def form_valid(self, form):
 
-        new_password = "".join([str(random.randint(0, 9)) for _ in range(12)])
-        sendmail(self.user.email, "Ваш новый пароль для Skyfarm:", new_password)
-        self.user.set_password(new_password)
-        self.user.save()
-
-        return super().form_valid(form)
+class UserResetCompleteView(PasswordResetCompleteView):
+    template_name = "users/reset/password_reset_complete.html"
