@@ -100,3 +100,12 @@ class UserResetConfirmView(PasswordResetConfirmView):
 
 class UserResetCompleteView(PasswordResetCompleteView):
     template_name = "users/reset/password_reset_complete.html"
+
+
+def generate_password(request):
+    new_password = "".join([str(random.randint(0, 9)) for _ in range(12)])
+    sendmail(request.user.email, "Замена пароля на сайте Skyfarm:", new_password)
+    request.user.set_password(new_password)
+    request.user.save()
+
+    return redirect(reverse("catalog:view"))
