@@ -1,0 +1,13 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+
+<h2>Восстановление доступа</h2>
+<p>Введите в поле ниже ваш e-mail адрес. На него будет выслан новый пароль для входа в вашу учетную запись</p>
+
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<p><input type="submit" value="Отправить"></p>
+</form>
+
+{% endblock %}
