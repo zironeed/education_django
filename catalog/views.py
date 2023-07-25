@@ -17,6 +17,8 @@ class ProductListView(ListView):
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
+    login_url = '../../users/'
+    redirect_field_name = 'redirect_to'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,6 +38,8 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
+    login_url = '../../users/'
+    redirect_field_name = 'redirect_to'
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:view',)
@@ -53,6 +57,8 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '../../users/'
+    redirect_field_name = 'redirect_to'
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:view')
@@ -94,6 +100,8 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '../../users/'
+    redirect_field_name = 'redirect_to'
     model = Product
     success_url = reverse_lazy('catalog:view')
 
