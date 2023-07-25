@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 from django.forms import inlineformset_factory
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from catalog.models import Product, Blog, Version
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
@@ -13,7 +15,7 @@ class ProductListView(ListView):
     model = Product
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -25,8 +27,15 @@ class ProductDetailView(DetailView):
         context["product_version"] = product_version.active_version
         return context
 
+    def get_object(self, queryset=None):
+        if self.object.owner != self.request.user:
+            raise PermissionDenied('Вы не владелец данного продукта.')
 
-class ProductCreateView(CreateView):
+        else:
+            return self.object
+
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:view',)
@@ -43,7 +52,7 @@ class ProductCreateView(CreateView):
         return context
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:view')
@@ -59,6 +68,13 @@ class ProductUpdateView(UpdateView):
             context["formset"] = SubjectFormset(instance=self.object)
 
         return context
+
+    def get_object(self, queryset=None):
+        if self.object.owner != self.request.user:
+            raise PermissionDenied('Вы не владелец данного продукта.')
+
+        else:
+            return self.object
 
     def form_valid(self, form):
         formset = self.get_context_data()['formset']
@@ -77,9 +93,16 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:view')
+
+    def get_object(self, queryset=None):
+        if self.object.owner != self.request.user:
+            raise PermissionDenied('Вы не владелец данного продукта.')
+
+        else:
+            return self.object
 
 
 def contacts(request):
